@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="css/styles.css" rel="stylesheet"/>
+</head>
+<body>
+<h4>Welcome to Thymeleaf Spring Boot web application</h4>
+<table>
+    <tbody>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.id}" />
+            <td th:text="${employee.firstname}" />
+        </tr>
+    </tbody>
+</table>
+
+<form action="#" th:action="@{/employee/save}" th:object="${employee}" method="post">
+    <table border="1">
+        <tr>
+            <td><label th:text="id" /></td>
+            <td><input type="number" th:field="*{id}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="firstname" /></td>
+            <td><input type="text" th:field="*{firstname}" /></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
