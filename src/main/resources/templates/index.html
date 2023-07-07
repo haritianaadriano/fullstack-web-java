@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,23 +10,22 @@
 <h4>Welcome to Thymeleaf Spring Boot web application</h4>
 <table>
     <tbody>
-        <tr th:each="employee : ${employees}">
-            <td th:text="id. ${employee.id}" />
-            <td th:text="${employee.firstname}" />
-            <td th:text="${employee.lastname}" />
-        </tr>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.id}" />
+        <td th:text="${employee.firstname}" />
+    </tr>
     </tbody>
 </table>
 
-<form action="#" th:action="@{/employee/save}" th:object="${employee}" method="post">
+<form th:action="@{/employee/save}" th:object="${employee}" method="post">
     <table border="1">
         <tr>
-            <td><label th:text="id" /></td>
-            <td><input type="number" th:field="*{id}" /></td>
+            <td><label for="id">ID</label></td>
+            <td><input type="number" id="id" th:field="*{id}" /></td>
         </tr>
         <tr>
-            <td><label th:text="firstname" /></td>
-            <td><input type="text" th:field="*{firstname}" /></td>
+            <td><label for="firstname">First Name</label></td>
+            <td><input type="text" id="firstname" th:field="*{firstname}" /></td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit" /></td>
