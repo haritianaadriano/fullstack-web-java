@@ -11,8 +11,9 @@
 <table>
     <tbody>
         <tr th:each="employee : ${employees}">
-            <td th:text="${employee.id}" />
+            <td th:text="id. ${employee.id}" />
             <td th:text="${employee.firstname}" />
+            <td th:text="${employee.lastname}" />
         </tr>
     </tbody>
 </table>
