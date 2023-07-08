@@ -15,6 +15,7 @@
             <th scope="col">Firstname</th>
             <th scope="col">Lastname</th>
             <th scope="col">Birthdate</th>
+            <th scope="col">Profile</th>
         </tr>
     </thead>
     <tbody>
@@ -24,6 +25,37 @@
             <td th:text="${employee.firstname}" />
             <td th:text="${employee.lastname}" />
             <td th:text="${employee.birthdate}" />
+            <td>
+                <div th:if="${employee.profile == null}">
+                    <form
+                            method="put"
+                            th:action="@{/upload/profile/{id}(id=${employee.id})}"
+                            enctype="multipart/form-data"
+                    >
+                        <div class="form-group">
+                            <input
+                                    type="file"
+                                    name="image"
+                                    accept="image/*"
+                                    class="form-control-file"
+                            >
+                        </div>
+                        <button
+                                type="submit"
+                                class="btn btn-primary"
+                        >
+                            Upload profile
+                        </button>
+                    </form>
+                </div>
+                <div th:if="${employee.profile != null}">
+                    <img
+                            th:src="@{/employee/profile/{id}(id=${employee.id})}"
+                            alt="Profile Image"
+                            width="100"
+                    >
+                </div>
+            </td>
         </tr>
     </tbody>
 </table>

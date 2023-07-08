@@ -1,18 +1,21 @@
 package com.demo.thymeleaf.service;
 
 import com.demo.thymeleaf.model.Employee;
-import com.demo.thymeleaf.repository.EmployeeRepository;
+import com.demo.thymeleaf.repository.Repository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 import static com.demo.thymeleaf.service.EmployeeUtils.findLastEmployee;
+import static com.demo.thymeleaf.service.EmployeeUtils.mapRefId;
 
 @Service
 @AllArgsConstructor
 public class EmployeeService {
-    private EmployeeRepository repository;
+    private Repository repository;
 
     public List<Employee> getEmployee(){
         return repository.findAll();
@@ -20,12 +23,7 @@ public class EmployeeService {
 
     public List<Employee> crUpdateEmployee(Employee newEmployee){
         Employee lastEmployee = findLastEmployee(repository);
-        String lastRef = lastEmployee.getRef();
-        int lastNumber = Integer.parseInt(lastRef.substring(lastRef.lastIndexOf("-") + 1));
-        int newNumber = lastNumber + 1;
-        String newRef = "EP-" + newNumber;
-
-        newEmployee.setRef(newRef);
+        newEmployee.setRef(mapRefId(lastEmployee));
         repository.save(newEmployee);
         return repository.findAll();
     }
