@@ -28,7 +28,11 @@ public class ProfileController {
         return "redirect:/employee";
     }
 
-    @RequestMapping(value = "/employee/profile/{id}", method = RequestMethod.GET)
+    @GetMapping(
+            value = "/profile/{id}",
+            produces = MediaType.ALL_VALUE
+    )
+    @ResponseBody
     public ResponseEntity<byte[]> getEmployeeProfile(@PathVariable("id") int idEmployee){
         byte[] profileData = profileService.getEmployeeProfile(idEmployee);
         HttpHeaders headers = new HttpHeaders();
