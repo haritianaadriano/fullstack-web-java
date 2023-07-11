@@ -5,6 +5,7 @@ import com.demo.thymeleaf.repository.ProfileRepository;
 import com.demo.thymeleaf.repository.Repository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ public class ProfileService {
     private ProfileRepository repository;
     private Repository employeeRepository;
 
+    @Transactional
     public byte[] getEmployeeProfile(int id){
         return repository.findProfileByEmployee_Id(id).getImg();
     }
