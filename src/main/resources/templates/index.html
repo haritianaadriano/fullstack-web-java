@@ -28,7 +28,7 @@
             <td>
                 <div th:if="${employee.profile == null}">
                     <form
-                            method="put"
+                            method="post"
                             th:action="@{/upload/profile/{id}(id=${employee.id})}"
                             enctype="multipart/form-data"
                     >
@@ -50,9 +50,11 @@
                 </div>
                 <div th:if="${employee.profile != null}">
                     <img
-                            th:src="@{/employee/profile/{id}(id=${employee.id})}"
+                            th:src="@{/profile/{id}(id=${employee.id})}"
                             alt="Profile Image"
                             width="100"
+                            data-image-src="@{/profile/{id}(id=${employee.id})}"
+                            data-image-content-type="image/jpeg"
                     >
                 </div>
             </td>

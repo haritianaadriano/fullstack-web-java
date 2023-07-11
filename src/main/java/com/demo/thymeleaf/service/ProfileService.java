@@ -1,5 +1,6 @@
 package com.demo.thymeleaf.service;
 
+import com.demo.thymeleaf.model.Employee;
 import com.demo.thymeleaf.model.Profile;
 import com.demo.thymeleaf.repository.ProfileRepository;
 import com.demo.thymeleaf.repository.Repository;
@@ -22,9 +23,24 @@ public class ProfileService {
     }
 
     public void uploadProfile(MultipartFile file, int idEmployee) throws IOException {
-        repository.save(Profile.builder()
-                .employee(employeeRepository.findById(idEmployee).get())
-                .img(file.getBytes())
+        employeeRepository.save(Employee.builder()
+                        .id(idEmployee)
+                        .lastname(employeeRepository.findById(idEmployee)
+                                .get()
+                                .getLastname())
+                        .firstname(employeeRepository.findById(idEmployee)
+                                .get()
+                                .getFirstname())
+                        .birthdate(employeeRepository.findById(idEmployee)
+                                .get()
+                                .getBirthdate())
+                        .ref(employeeRepository.findById(idEmployee)
+                                .get()
+                                .getRef())
+                        .profile(repository.save(Profile.builder()
+                                        .img(file.getBytes())
+                                        .employee(employeeRepository.findById(idEmployee).get())
+                                .build()))
                 .build());
     }
 }
