@@ -36,7 +36,12 @@ public class EmployeeController {
             Model model
             ) {
         model.addAttribute("employees", service.getEmployee());
-        model.addAttribute("employee", new Employee());
         return "index";
+    }
+
+    @RequestMapping(value = "/employee/save", method = RequestMethod.GET)
+    public String saveEmployeeResolver(Model model) {
+        model.addAttribute("employee", new Employee());
+        return "addEmployee";
     }
 }
