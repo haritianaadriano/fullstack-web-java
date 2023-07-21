@@ -94,19 +94,31 @@
                 >
             </div>
             <div class="form-group">
-                <label for="job">Job</label>
+                <label>Job</label>
                 <input
                         type="text"
                         class="form-control"
                 >
             </div>
             <div class="form-group">
-                <label for="CNAPS">CNAPS</label>
+                <label>CNAPS</label>
                 <input
                         type="text"
                         class="form-control"
                 >
             </div>
+            <div class="form-group">
+                <label>CSP</label>
+                <select class="custom-select" >
+                    <option value="" disabled selected>Select CSP</option>
+                    <option th:each="cspOption : ${T(com.demo.thymeleaf.model.type.Csp).values()}"
+                            th:value="${cspOption}"
+                            th:text="${cspOption}"
+                    >
+                    </option>
+                </select>
+            </div>
+
 
             <hr style="width: 100px;">
 

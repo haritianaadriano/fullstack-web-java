@@ -1,8 +1,9 @@
 package com.demo.thymeleaf.controller;
 
+import com.demo.thymeleaf.controller.form.EmployeeForm;
+import com.demo.thymeleaf.controller.mapper.EmployeeMapper;
 import com.demo.thymeleaf.model.Employee;
 import com.demo.thymeleaf.service.EmployeeService;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,25 +18,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @AllArgsConstructor
 public class EmployeeController {
   private EmployeeService service;
+  private EmployeeMapper mapper;
 
     @RequestMapping(value = "/employee/save", method = RequestMethod.POST)
     public String saveEmployee(
-            @ModelAttribute(name = "employee") @Valid Employee newEmployee,
+            @ModelAttribute(name = "employee") EmployeeForm newEmployee,
             BindingResult errors,
             Model model,
             HttpServletResponse response
     ) {
        model.addAttribute("employees", service.getEmployee());
-       service.crUpdateEmployee(newEmployee);
+        //TODO: check if returning a simple employee don't stop the app when inserting new empployee
+        service.insertEmployee(newEmployee);
         return "redirect:/employee";
     }
 
+    //RESOLVER ->
 
     @RequestMapping(value = "/employee", method = RequestMethod.GET)
     public String employeeResolver(
             Model model
             ) {
-        model.addAttribute("employees", service.getEmployee());
+        model.addAttribute(
+                "employees",
+                service.getEmployee().stream()
+                        .map(mapper::toRest)
+        );
         return "index";
     }
 

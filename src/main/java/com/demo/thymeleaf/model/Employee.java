@@ -2,6 +2,7 @@ package com.demo.thymeleaf.model;
 
 import com.demo.thymeleaf.model.type.Csp;
 import com.demo.thymeleaf.model.type.Sexe;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -51,6 +52,7 @@ public class Employee implements Serializable {
     private String CNAPS;
     private int children;
     private LocalDate beginDate;
+    @Nullable
     private LocalDate finishDate;
     @Email
     @NotEmpty
@@ -58,11 +60,11 @@ public class Employee implements Serializable {
     @Email
     @NotEmpty
     private String emailPerso;
-    @Transient
-    private List<String> phoneNumber;
     @OneToOne
     private Cin cin;
     private LocalDate birthdate;
     @OneToOne
     private Profile profile;
+    @Transient
+    List<String> phones;
 }

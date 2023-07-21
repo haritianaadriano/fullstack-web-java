@@ -1,4 +1,4 @@
-package com.demo.thymeleaf.service;
+package com.demo.thymeleaf.service.utils;
 
 import com.demo.thymeleaf.model.Employee;
 import com.demo.thymeleaf.repository.Repository;
