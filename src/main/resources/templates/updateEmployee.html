@@ -52,6 +52,16 @@
 
         <form style="margin-top: 30px;" th:action="@{/employee/save}" th:object="${employee}" method="post">
             <div class="form-group">
+                <label>#</label>
+                <input
+                        type="number"
+                        class="form-control"
+                        th:value="${employee.id}"
+                        th:field="*{id}"
+                >
+            </div>
+
+            <div class="form-group">
                 <label>Firstname</label>
                 <input
                         type="text"

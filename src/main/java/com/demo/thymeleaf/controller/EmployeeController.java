@@ -1,6 +1,7 @@
 package com.demo.thymeleaf.controller;
 
 import com.demo.thymeleaf.controller.form.EmployeeForm;
+import com.demo.thymeleaf.controller.form.UpdateEmployeeForm;
 import com.demo.thymeleaf.controller.mapper.EmployeeMapper;
 import com.demo.thymeleaf.model.Employee;
 import com.demo.thymeleaf.service.EmployeeService;
@@ -34,13 +35,13 @@ public class EmployeeController {
 
     @RequestMapping(value = "/employee/update", method = RequestMethod.POST)
     public String updateEmployee(
-            @ModelAttribute(name = "employee") EmployeeForm newEmployee,
+            @ModelAttribute(name = "employee") UpdateEmployeeForm newEmployee,
             BindingResult errors,
             Model model,
             HttpServletResponse response
     ) {
         model.addAttribute("employees", service.getEmployee());
-        service.insertEmployee(newEmployee);
+        service.updateEmployee(newEmployee);
         return "redirect:/employee";
     }
 
@@ -50,11 +51,7 @@ public class EmployeeController {
     public String updateEmployeeResolver(
             Model model
     ) {
-        model.addAttribute(
-                "employees",
-                service.getEmployee().stream()
-                        .map(mapper::toRest)
-        );
+        model.addAttribute("employee", new UpdateEmployeeForm());
         return "updateEmployee";
     }
 

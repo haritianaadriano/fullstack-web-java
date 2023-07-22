@@ -1,6 +1,7 @@
 package com.demo.thymeleaf.service;
 
 import com.demo.thymeleaf.controller.form.EmployeeForm;
+import com.demo.thymeleaf.controller.form.UpdateEmployeeForm;
 import com.demo.thymeleaf.controller.mapper.EmployeeMapper;
 import com.demo.thymeleaf.model.Employee;
 import com.demo.thymeleaf.model.Phonenumber;
@@ -33,7 +34,7 @@ public class EmployeeService {
         return employee;
     }
 
-    public Employee updateEmployee(Employee toUpdate) {
-        return repository.save(mapper.toDomain(toUpdate));
+    public Employee updateEmployee(UpdateEmployeeForm toUpdate) {
+        return repository.save(mapper.toUpdate(toUpdate));
     }
 }

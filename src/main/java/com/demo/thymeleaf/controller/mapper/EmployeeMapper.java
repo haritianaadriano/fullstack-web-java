@@ -1,6 +1,7 @@
 package com.demo.thymeleaf.controller.mapper;
 
 import com.demo.thymeleaf.controller.form.EmployeeForm;
+import com.demo.thymeleaf.controller.form.UpdateEmployeeForm;
 import com.demo.thymeleaf.model.Cin;
 import com.demo.thymeleaf.model.Employee;
 import com.demo.thymeleaf.repository.CinRepostiroy;
@@ -21,6 +22,7 @@ public class EmployeeMapper {
 
     public Employee toRest(Employee employee) {
         return Employee.builder()
+                .children(employee.getChildren())
                 .firstname(employee.getFirstname())
                 .lastname(employee.getLastname())
                 .emailPro(employee.getEmailPro())
@@ -65,29 +67,27 @@ public class EmployeeMapper {
                 .build();
     }
 
-    public Employee toDomain(Employee employee){
-        Cin cin = Cin.builder()
-                .id(employee.getCin().getId())
-                .number(employee.getCin().getNumber())
-                .deliveryDate(employee.getCin().getDeliveryDate())
-                .deliveryLocation(employee.getCin().getDeliveryLocation())
-                .build();
+    public Employee toUpdate(UpdateEmployeeForm employeeForm){
+        Cin cin = cinRepostiroy.get_cin_byNumber(employeeForm.getCIN_number());
+        cin.setDeliveryDate(employeeForm.getCIN_delivery_date());
+        cin.setNumber(employeeForm.getCIN_number());
+        cin.setDeliveryLocation(employeeForm.getCIN_delivery_location());
         return Employee.builder()
-                .id(employee.getId())
-                .lastname(employee.getLastname())
-                .firstname(employee.getFirstname())
-                .birthdate(employee.getBirthdate())
-                .adress(employee.getAdress())
-                .CNAPS(employee.getCNAPS())
-                .csp(employee.getCsp())
+                .id(employeeForm.getId())
+                .lastname(employeeForm.getLastname())
+                .firstname(employeeForm.getFirstname())
+                .birthdate(employeeForm.getBirthdate())
+                .adress(employeeForm.getAdress())
+                .CNAPS(employeeForm.getCNAPS())
+                .csp(employeeForm.getCsp())
                 .cin(cinRepostiroy.save(cin))
-                .children(employee.getChildren())
-                .emailPerso(employee.getEmailPerso())
-                .emailPro(employee.getEmailPro())
-                .beginDate(employee.getBeginDate())
+                .children(employeeForm.getChildren())
+                .emailPerso(employeeForm.getEmailPerso())
+                .emailPro(employeeForm.getEmailPro())
+                .beginDate(employeeForm.getBegindate())
                 .ref(EmployeeUtils.mapRefId(EmployeeUtils.findLastEmployee(repository)))
-                .job(employee.getJob())
-                .sexe(employee.getSexe())
+                .job(employeeForm.getJob())
+                .sexe(employeeForm.getGender())
                 .build();
     }
 }
