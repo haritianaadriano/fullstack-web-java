@@ -21,6 +21,11 @@ public class EmployeeMapper {
 
     public Employee toRest(Employee employee) {
         return Employee.builder()
+                .firstname(employee.getFirstname())
+                .lastname(employee.getLastname())
+                .emailPro(employee.getEmailPro())
+                .emailPerso(employee.getEmailPerso())
+                .profile(employee.getProfile())
                 .id(employee.getId())
                 .ref(employee.getRef())
                 .sexe(employee.getSexe())
