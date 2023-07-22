@@ -28,12 +28,35 @@ public class EmployeeController {
             HttpServletResponse response
     ) {
        model.addAttribute("employees", service.getEmployee());
-        //TODO: check if returning a simple employee don't stop the app when inserting new empployee
+        service.insertEmployee(newEmployee);
+        return "redirect:/employee";
+    }
+
+    @RequestMapping(value = "/employee/update", method = RequestMethod.POST)
+    public String updateEmployee(
+            @ModelAttribute(name = "employee") EmployeeForm newEmployee,
+            BindingResult errors,
+            Model model,
+            HttpServletResponse response
+    ) {
+        model.addAttribute("employees", service.getEmployee());
         service.insertEmployee(newEmployee);
         return "redirect:/employee";
     }
 
     //RESOLVER ->
+
+    @RequestMapping(value = "/employee/update", method = RequestMethod.GET)
+    public String updateEmployeeResolver(
+            Model model
+    ) {
+        model.addAttribute(
+                "employees",
+                service.getEmployee().stream()
+                        .map(mapper::toRest)
+        );
+        return "updateEmployee";
+    }
 
     @RequestMapping(value = "/employee", method = RequestMethod.GET)
     public String employeeResolver(

@@ -22,6 +22,9 @@
             <li class="nav-item active">
                 <a class="nav-link small-font mb-2 text-muted" th:href="@{/employee/save}">/New employee</a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link small-font mb-2 text-muted" th:href="@{/employee/update}">/Update employee</a>
+            </li>
         </ul>
         <div style="margin-right: 500px">
             <figure class="text-center">
@@ -38,19 +41,23 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Ref</th>
+            <th scope="col">Profile</th>
             <th scope="col">Firstname</th>
             <th scope="col">Lastname</th>
-            <th scope="col">Birthdate</th>
-            <th scope="col">Profile</th>
+            <th scope="col">CIN</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Children</th>
+            <th scope="col">Job</th>
+            <th scope="col">CSP</th>
+            <th scope="col">Adress</th>
         </tr>
     </thead>
     <tbody>
         <tr th:each="employee : ${employees}">
             <th scope="row" th:text="${employee.id}" />
             <td th:text="${employee.ref}" />
-            <td th:text="${employee.firstname}" />
-            <td th:text="${employee.lastname}" />
-            <td th:text="${employee.birthdate}" />
+
             <td>
                 <div th:if="${employee.profile == null}">
                     <form
@@ -84,6 +91,16 @@
                     >
                 </div>
             </td>
+
+            <td th:text="${employee.firstname}" />
+            <td th:text="${employee.lastname}" />
+            <td th:text="${employee.cin.number}" />
+            <td th:text="${employee.emailPro}" />
+            <td th:text="${employee.phones}" />
+            <td th:text="${employee.children}" />
+            <td th:text="${employee.job}" />
+            <td th:text="${employee.csp}" />
+            <td th:text="${employee.adress}" />
         </tr>
     </tbody>
 </table>
