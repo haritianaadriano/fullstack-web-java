@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Component
 public class EmployeeMapper {
     private CinRepostiroy cinRepostiroy;
@@ -50,7 +49,7 @@ public class EmployeeMapper {
                 .adress(employeeForm.getAdress())
                 .CNAPS(employeeForm.getCNAPS())
                 .csp(employeeForm.getCsp())
-                .cin(cin)
+                .cin(cinRepostiroy.save(cin))
                 .children(employeeForm.getChildren())
                 .emailPerso(employeeForm.getEmailPerso())
                 .emailPro(employeeForm.getEmailPro())
@@ -76,7 +75,7 @@ public class EmployeeMapper {
                 .adress(employee.getAdress())
                 .CNAPS(employee.getCNAPS())
                 .csp(employee.getCsp())
-                .cin(cin)
+                .cin(cinRepostiroy.save(cin))
                 .children(employee.getChildren())
                 .emailPerso(employee.getEmailPerso())
                 .emailPro(employee.getEmailPro())

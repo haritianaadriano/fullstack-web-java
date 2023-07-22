@@ -3,11 +3,12 @@ package com.demo.thymeleaf.service.utils;
 import com.demo.thymeleaf.repository.PhonenumberRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @AllArgsConstructor
-@NoArgsConstructor
+@Component
 public class PhonenumberUtils {
     private PhonenumberRepository phonenumberRepository;
 

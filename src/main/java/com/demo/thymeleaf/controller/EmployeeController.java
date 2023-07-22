@@ -49,7 +49,7 @@ public class EmployeeController {
 
     @RequestMapping(value = "/employee/save", method = RequestMethod.GET)
     public String saveEmployeeResolver(Model model) {
-        model.addAttribute("employee", new Employee());
+        model.addAttribute("employee", new EmployeeForm());
         return "addEmployee";
     }
 }

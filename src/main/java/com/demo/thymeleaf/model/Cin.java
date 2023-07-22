@@ -17,7 +17,6 @@ import java.time.LocalDate;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "CIN")
 @Getter
 @Setter
 @Builder
