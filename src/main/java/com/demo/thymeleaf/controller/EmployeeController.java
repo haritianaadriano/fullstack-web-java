@@ -71,11 +71,6 @@ public class EmployeeController {
         return "index";
     }
 
-    @GetMapping("/csv-employee")
-    public String exportCSV() {
-        return "employeeCSV";
-    }
-
     @RequestMapping(value = "/employee/save", method = RequestMethod.GET)
     public String saveEmployeeResolver(Model model) {
         model.addAttribute("employee", new EmployeeForm());
