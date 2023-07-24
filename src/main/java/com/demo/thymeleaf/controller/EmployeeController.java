@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,6 +69,11 @@ public class EmployeeController {
                         .map(mapper::toRest)
         );
         return "index";
+    }
+
+    @GetMapping("/csv-employee")
+    public String exportCSV() {
+        return "employeeCSV";
     }
 
     @RequestMapping(value = "/employee/save", method = RequestMethod.GET)

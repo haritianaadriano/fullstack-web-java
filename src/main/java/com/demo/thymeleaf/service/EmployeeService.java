@@ -10,6 +10,7 @@ import com.demo.thymeleaf.repository.CinRepostiroy;
 import com.demo.thymeleaf.repository.DAO.EmployeeDAO;
 import com.demo.thymeleaf.repository.PhonenumberRepository;
 import com.demo.thymeleaf.repository.Repository;
+import com.demo.thymeleaf.service.utils.PhonenumberUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -24,6 +25,7 @@ public class EmployeeService {
     private EmployeeMapper mapper;
     private final PhonenumberRepository phonenumberRepository;
     private final CinRepostiroy cinRepostiroy;
+    private PhonenumberUtils phonenumberUtils;
 
     public List<Employee> getEmployee(String order, String firstname, String lastname, String job, String adress){
         Sort sort = Sort.by(Sort.Direction.fromString(order), "beginDate");
@@ -33,12 +35,7 @@ public class EmployeeService {
 
     public Employee insertEmployee(EmployeeForm toCreate) {
         Employee employee = repository.save(mapper.toDomain(toCreate));
-        phonenumberRepository.save(
-                Phonenumber.builder()
-                        .phoneNumber(toCreate.getPhonenumber())
-                        .employee(employee)
-                        .build()
-        );
+        phonenumberRepository.saveAll(phonenumberUtils.checkPhonenumber(employee.getPhones(), employee.getId()));
         return employee;
     }
 

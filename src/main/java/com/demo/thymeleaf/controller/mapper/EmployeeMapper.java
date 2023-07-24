@@ -1,10 +1,10 @@
 package com.demo.thymeleaf.controller.mapper;
 
 import com.demo.thymeleaf.controller.form.EmployeeForm;
-import com.demo.thymeleaf.controller.form.UpdateEmployeeForm;
 import com.demo.thymeleaf.model.Cin;
 import com.demo.thymeleaf.model.Employee;
 import com.demo.thymeleaf.repository.CinRepostiroy;
+import com.demo.thymeleaf.repository.EntrepriseConfRepository;
 import com.demo.thymeleaf.repository.PhonenumberRepository;
 import com.demo.thymeleaf.repository.Repository;
 import com.demo.thymeleaf.service.utils.EmployeeUtils;
@@ -16,8 +16,9 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 public class EmployeeMapper {
-    private CinRepostiroy cinRepostiroy;
-    private Repository repository;
+    private final EntrepriseConfRepository entrepriseConfRepository;
+    private final CinRepostiroy cinRepostiroy;
+    private final Repository repository;
     private PhonenumberUtils phonenumberUtils;
 
     public Employee toRest(Employee employee) {
@@ -50,6 +51,7 @@ public class EmployeeMapper {
                 .number(employeeForm.getCIN_number())
                 .build();
         return Employee.builder()
+                .phones(employeeForm.getPhonenumber())
                 .lastname(employeeForm.getLastname())
                 .firstname(employeeForm.getFirstname())
                 .birthdate(employeeForm.getBirthdate())

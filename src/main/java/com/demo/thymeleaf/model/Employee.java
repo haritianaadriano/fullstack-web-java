@@ -65,6 +65,5 @@ public class Employee implements Serializable {
     private LocalDate birthdate;
     @OneToOne
     private Profile profile;
-    @Transient
-    List<String> phones;
+    String phones;
 }

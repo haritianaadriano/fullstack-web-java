@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface PhonenumberRepository extends JpaRepository <Phonenumber, Integer>{
-    @Query("SELECT ph FROM Phonenumber ph WHERE ph.employee.id = ?1")
+    @Query(value = "SELECT * FROM phone_number WHERE employee_id = ?1", nativeQuery = true)
     List<Phonenumber> find_phone_by_employee_id(int employeeId);
 }

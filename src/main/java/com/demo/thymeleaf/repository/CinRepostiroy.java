@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CinRepostiroy extends JpaRepository<Cin, Integer> {
-    @Query("SELECT c FROM Cin c WHERE c.number = ?1 ")
+    @Query(value = "SELECT * FROM cin WHERE number = ?1 ", nativeQuery = true)
     Cin get_cin_byNumber(Double number);
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<h2>Employee Data in CSV Format</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Reference</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <!-- Add more headers for other fields -->
+    </tr>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.id}"></td>
+        <td th:text="${employee.ref}"></td>
+        <td th:text="${employee.firstname}"></td>
+        <td th:text="${employee.lastname}"></td>
+        <!-- Add more cells for other fields -->
+    </tr>
+</table>
+</body>
+</html>

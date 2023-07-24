@@ -15,5 +15,6 @@ CREATE TABLE IF NOT EXISTS "employee" (
     email_perso VARCHAR,
     cin_id INTEGER,
     birthdate DATE,
-    profile_id INTEGER
+    profile_id INTEGER,
+    phones VARCHAR
 );
