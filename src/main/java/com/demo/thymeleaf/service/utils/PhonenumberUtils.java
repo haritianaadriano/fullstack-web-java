@@ -31,7 +31,7 @@ public class PhonenumberUtils {
         String[] phonenumbers = phonenumber.split(";");
         List<Phonenumber> phonenumberData = new ArrayList<>();
 
-        for(int i = 0; i < phonenumber.length(); i ++) {
+        for (int i = 0; i < phonenumbers.length; i++) {
             Phonenumber phone = Phonenumber.builder()
                     .phoneNumber(phonenumbers[i])
                     .employee(repository.findById(idEmployee).get())
