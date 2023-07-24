@@ -3,7 +3,6 @@ package com.demo.thymeleaf.controller;
 import com.demo.thymeleaf.controller.form.EmployeeForm;
 import com.demo.thymeleaf.controller.form.UpdateEmployeeForm;
 import com.demo.thymeleaf.controller.mapper.EmployeeMapper;
-import com.demo.thymeleaf.model.Employee;
 import com.demo.thymeleaf.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @AllArgsConstructor
@@ -28,7 +28,6 @@ public class EmployeeController {
             Model model,
             HttpServletResponse response
     ) {
-       model.addAttribute("employees", service.getEmployee());
         service.insertEmployee(newEmployee);
         return "redirect:/employee";
     }
@@ -40,8 +39,7 @@ public class EmployeeController {
             Model model,
             HttpServletResponse response
     ) {
-        model.addAttribute("employees", service.getEmployee());
-        service.updateEmployee(newEmployee);
+        service.updateEmployee(newEmployee, newEmployee.getId());
         return "redirect:/employee";
     }
 
@@ -57,11 +55,16 @@ public class EmployeeController {
 
     @RequestMapping(value = "/employee", method = RequestMethod.GET)
     public String employeeResolver(
-            Model model
+            Model model,
+            @RequestParam(name = "order", defaultValue = "ASC") String order,
+            @RequestParam(name = "firstname", required = false, defaultValue = "") String firstname,
+            @RequestParam(name = "lastname", required = false, defaultValue = "") String lastname,
+            @RequestParam(name = "job", required = false, defaultValue = "") String job,
+            @RequestParam(name = "address", required = false, defaultValue = "") String address
             ) {
         model.addAttribute(
                 "employees",
-                service.getEmployee().stream()
+                service.getEmployee(order, firstname, lastname, job, address).stream()
                         .map(mapper::toRest)
         );
         return "index";

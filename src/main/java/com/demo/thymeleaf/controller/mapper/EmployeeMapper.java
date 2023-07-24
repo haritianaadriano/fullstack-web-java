@@ -66,28 +66,4 @@ public class EmployeeMapper {
                 .sexe(employeeForm.getGender())
                 .build();
     }
-
-    public Employee toUpdate(UpdateEmployeeForm employeeForm){
-        Cin cin = cinRepostiroy.get_cin_byNumber(employeeForm.getCIN_number());
-        cin.setDeliveryDate(employeeForm.getCIN_delivery_date());
-        cin.setNumber(employeeForm.getCIN_number());
-        cin.setDeliveryLocation(employeeForm.getCIN_delivery_location());
-        return Employee.builder()
-                .id(employeeForm.getId())
-                .lastname(employeeForm.getLastname())
-                .firstname(employeeForm.getFirstname())
-                .birthdate(employeeForm.getBirthdate())
-                .adress(employeeForm.getAdress())
-                .CNAPS(employeeForm.getCNAPS())
-                .csp(employeeForm.getCsp())
-                .cin(cinRepostiroy.save(cin))
-                .children(employeeForm.getChildren())
-                .emailPerso(employeeForm.getEmailPerso())
-                .emailPro(employeeForm.getEmailPro())
-                .beginDate(employeeForm.getBegindate())
-                .ref(EmployeeUtils.mapRefId(EmployeeUtils.findLastEmployee(repository)))
-                .job(employeeForm.getJob())
-                .sexe(employeeForm.getGender())
-                .build();
-    }
 }
