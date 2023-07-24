@@ -58,78 +58,80 @@
     <button type="submit" class="btn btn-primary mb-2">Filter</button>
 </form>
 
-<table class="table" style="margin-top: 20px; margin-bottom: 30px; ">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Ref</th>
-            <th scope="col">Profile</th>
-            <th scope="col">Firstname</th>
-            <th scope="col">Lastname</th>
-            <th scope="col">CIN</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Children</th>
-            <th scope="col">Job</th>
-            <th scope="col">CSP</th>
-            <th scope="col">CNAPS</th>
-            <th scope="col">S</th>
-            <th scope="col">Adress</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="employee : ${employees}">
-            <th scope="row" th:text="${employee.id}" />
-            <td th:text="${employee.ref}" />
+    <div style="height: 300px; max-height: 300px; overflow: auto">
+        <table class="table" style="height: 35vh; margin-top: 20px; margin-bottom: 30px">
+            <thead>
+            <tr class="table-primary">
+                <th scope="col">#</th>
+                <th scope="col">Ref</th>
+                <th scope="col">Profile</th>
+                <th scope="col">Firstname</th>
+                <th scope="col">Lastname</th>
+                <th scope="col">CIN</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Children</th>
+                <th scope="col">Job</th>
+                <th scope="col">CSP</th>
+                <th scope="col">CNAPS</th>
+                <th scope="col">S</th>
+                <th scope="col">Adress</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="employee : ${employees}">
+                <th scope="row" th:text="${employee.id}" />
+                <td th:text="${employee.ref}" />
 
-            <td>
-                <div th:if="${employee.profile == null}">
-                    <form
-                            method="post"
-                            th:action="@{/upload/profile/{id}(id=${employee.id})}"
-                            enctype="multipart/form-data"
-                    >
-                        <div class="form-group">
-                            <input
-                                    type="file"
-                                    name="image"
-                                    accept="image/*"
-                                    class="form-control-file"
-                            >
-                        </div>
-                        <button
-                                type="submit"
-                                class="btn btn-primary"
+                <td>
+                    <div th:if="${employee.profile == null}">
+                        <form
+                                method="post"
+                                th:action="@{/upload/profile/{id}(id=${employee.id})}"
+                                enctype="multipart/form-data"
                         >
-                            Upload profile
-                        </button>
-                    </form>
-                </div>
-                <div th:if="${employee.profile != null}">
-                    <img
-                            th:src="@{/profile/{id}(id=${employee.id})}"
-                            alt="Profile Image"
-                            width="100"
-                            data-image-src="@{/profile/{id}(id=${employee.id})}"
-                            data-image-content-type="image/jpeg"
-                    >
-                </div>
-            </td>
+                            <div class="form-group">
+                                <input
+                                        type="file"
+                                        name="image"
+                                        accept="image/*"
+                                        class="form-control-file"
+                                >
+                            </div>
+                            <button
+                                    type="submit"
+                                    class="btn btn-primary"
+                            >
+                                Upload profile
+                            </button>
+                        </form>
+                    </div>
+                    <div th:if="${employee.profile != null}">
+                        <img
+                                th:src="@{/profile/{id}(id=${employee.id})}"
+                                alt="Profile Image"
+                                width="100"
+                                data-image-src="@{/profile/{id}(id=${employee.id})}"
+                                data-image-content-type="image/jpeg"
+                        >
+                    </div>
+                </td>
 
-            <td th:text="${employee.firstname}" />
-            <td th:text="${employee.lastname}" />
-            <td th:text="${employee.cin.number}" />
-            <td th:text="${employee.emailPro}" />
-            <td th:text="${employee.phones}" />
-            <td th:text="${employee.children}" />
-            <td th:text="${employee.job}" />
-            <td th:text="${employee.csp}" />
-            <td th:text="${employee.CNAPS}" />
-            <td th:text="${employee.sexe}" />
-            <td th:text="${employee.adress}" />
-        </tr>
-    </tbody>
-</table>
+                <td th:text="${employee.firstname}" />
+                <td th:text="${employee.lastname}" />
+                <td th:text="${employee.cin.number}" />
+                <td th:text="${employee.emailPro}" />
+                <td th:text="${employee.phones}" />
+                <td th:text="${employee.children}" />
+                <td th:text="${employee.job}" />
+                <td th:text="${employee.csp}" />
+                <td th:text="${employee.CNAPS}" />
+                <td th:text="${employee.sexe}" />
+                <td th:text="${employee.adress}" />
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">
