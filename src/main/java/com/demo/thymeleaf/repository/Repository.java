@@ -10,7 +10,7 @@ import java.util.List;
 
 @org.springframework.stereotype.Repository
 public interface Repository extends JpaRepository <Employee, Integer>, JpaSpecificationExecutor<Employee> {
-    @Query(value = "SELECT * FROM employe " +
+    @Query(value = "SELECT * FROM employee " +
             "WHERE (:firstname IS NULL OR firstname LIKE CONCAT('%', :firstname, '%')) " +
             "AND (:lastname IS NULL OR lastname LIKE CONCAT('%', :lastname, '%'))",
             nativeQuery = true)
