@@ -4,6 +4,8 @@ import com.demo.thymeleaf.controller.form.EmployeeForm;
 import com.demo.thymeleaf.controller.form.UpdateEmployeeForm;
 import com.demo.thymeleaf.controller.mapper.EmployeeMapper;
 import com.demo.thymeleaf.service.EmployeeService;
+import com.demo.thymeleaf.service.utils.AuthService;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Objects;
+import java.util.UUID;
+
 @Controller
 @AllArgsConstructor
 public class EmployeeController {
+  private final AuthService authService;
   private EmployeeService service;
   private EmployeeMapper mapper;
 
@@ -56,6 +62,7 @@ public class EmployeeController {
 
     @RequestMapping(value = "/employee", method = RequestMethod.GET)
     public String employeeResolver(
+            HttpSession session,
             Model model,
             @RequestParam(name = "order", defaultValue = "ASC") String order,
             @RequestParam(name = "firstname", required = false, defaultValue = "") String firstname,
@@ -68,7 +75,11 @@ public class EmployeeController {
                 service.getEmployee(order, firstname, lastname, job, address).stream()
                         .map(mapper::toRest)
         );
-        return "index";
+        String token = (String) session.getAttribute("token");
+        if (Objects.nonNull(token) && authService.isAuthorised(UUID.fromString(token))) {
+            return "index";
+        }
+        return "redirect:/auth/login";
     }
 
     @RequestMapping(value = "/employee/save", method = RequestMethod.GET)

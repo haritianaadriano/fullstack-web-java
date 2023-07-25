@@ -21,7 +21,7 @@ public class PhonenumberUtils {
         StringBuilder stringBuilder = new StringBuilder();
         for(Phonenumber phone : phones) {
             stringBuilder.append(phone.getPhoneNumber());
-            stringBuilder.append(" ");
+            stringBuilder.append(" / ");
         }
 
         return String.valueOf(stringBuilder);
