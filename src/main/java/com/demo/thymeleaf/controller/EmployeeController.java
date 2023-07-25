@@ -54,10 +54,15 @@ public class EmployeeController {
 
     @RequestMapping(value = "/employee/update", method = RequestMethod.GET)
     public String updateEmployeeResolver(
-            Model model
+            Model model,
+            HttpSession session
     ) {
+        String token = (String) session.getAttribute("token");
         model.addAttribute("employee", new UpdateEmployeeForm());
-        return "updateEmployee";
+        if (Objects.nonNull(token) && authService.isAuthorised(UUID.fromString(token))) {
+            return "updateEmployee";
+        }
+        return "redirect:/auth/login";
     }
 
     @RequestMapping(value = "/employee", method = RequestMethod.GET)
@@ -83,8 +88,15 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employee/save", method = RequestMethod.GET)
-    public String saveEmployeeResolver(Model model) {
+    public String saveEmployeeResolver(
+            Model model,
+            HttpSession session
+    ) {
         model.addAttribute("employee", new EmployeeForm());
-        return "addEmployee";
+        String token = (String) session.getAttribute("token");
+        if (Objects.nonNull(token) && authService.isAuthorised(UUID.fromString(token))) {
+            return "addEmployee";
+        }
+        return "redirect:/auth/login";
     }
 }
