@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDAO {
-    public static Specification<Employee> filterEmployee(String adress, String job) {
+    public static Specification<Employee> filterEmployee(String adress, String job, String phone) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
@@ -18,6 +18,10 @@ public class EmployeeDAO {
 
             if(!job.isEmpty()) {
                 predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("job")), "%" + job.toLowerCase() + "%"));
+            }
+
+            if(!phone.isEmpty()) {
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("phones")), "%" + phone.toLowerCase() + "%"));
             }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

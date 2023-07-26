@@ -73,11 +73,12 @@ public class EmployeeController {
             @RequestParam(name = "firstname", required = false, defaultValue = "") String firstname,
             @RequestParam(name = "lastname", required = false, defaultValue = "") String lastname,
             @RequestParam(name = "job", required = false, defaultValue = "") String job,
-            @RequestParam(name = "address", required = false, defaultValue = "") String address
+            @RequestParam(name = "address", required = false, defaultValue = "") String address,
+            @RequestParam(name = "phone", required = false, defaultValue = "") String phone
             ) {
         model.addAttribute(
                 "employees",
-                service.getEmployee(order, firstname, lastname, job, address).stream()
+                service.getEmployee(order, firstname, lastname, job, address, phone).stream()
                         .map(mapper::toRest)
         );
         String token = (String) session.getAttribute("token");

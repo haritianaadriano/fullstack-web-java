@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class Phonenumber {
     @GeneratedValue(strategy = IDENTITY)
     private int id;
 
+    @Pattern(regexp = "^\\+.{3}+")
     private String phoneNumber;
 
     @ManyToOne

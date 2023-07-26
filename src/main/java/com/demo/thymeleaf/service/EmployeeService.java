@@ -29,13 +29,13 @@ public class EmployeeService {
     private PhonenumberUtils phonenumberUtils;
 
     @Transactional
-    public List<Employee> getEmployee(String order, String firstname, String lastname, String job, String adress){
+    public List<Employee> getEmployee(String order, String firstname, String lastname, String job, String adress, String phone){
         Sort sort = Sort.by(Sort.Direction.fromString(order), "beginDate");
-        Specification<Employee> spec = EmployeeDAO.filterEmployee(adress, job);
+        Specification<Employee> spec = EmployeeDAO.filterEmployee(adress, job, phone);
         if(firstname.isEmpty() && lastname.isEmpty()) {
             return repository.findAll(spec, sort);
         }
-        return repository.find_employee_by_name_criteria(firstname, lastname);
+        return repository.find_employee_by_name_criteria(firstname.toLowerCase(), lastname.toLowerCase());
     }
 
     public Employee insertEmployee(EmployeeForm toCreate) {
