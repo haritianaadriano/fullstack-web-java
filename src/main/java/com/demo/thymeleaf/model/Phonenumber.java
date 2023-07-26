@@ -26,7 +26,7 @@ public class Phonenumber {
     @GeneratedValue(strategy = IDENTITY)
     private int id;
 
-    @Pattern(regexp = "^\\+.{3}+")
+    @Pattern(regexp = "^\\+261.+")
     private String phoneNumber;
 
     @ManyToOne
