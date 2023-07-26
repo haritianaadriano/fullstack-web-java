@@ -35,7 +35,7 @@ public class EmployeeService {
         if(firstname.isEmpty() && lastname.isEmpty()) {
             return repository.findAll(spec, sort);
         }
-        return repository.find_employee_by_name_criteria(firstname.toLowerCase(), lastname.toLowerCase());
+        return repository.find_employee_by_name_criteria(firstname, lastname);
     }
 
     public Employee insertEmployee(EmployeeForm toCreate) {
