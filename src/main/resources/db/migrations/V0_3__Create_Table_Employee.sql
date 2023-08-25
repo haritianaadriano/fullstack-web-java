@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS "employee" (
     adress VARCHAR,
     job VARCHAR,
     csp VARCHAR,
+    salary INTEGER,
     CNAPS VARCHAR,
     children INTEGER,
     begin_date DATE,

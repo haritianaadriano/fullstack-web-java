@@ -27,7 +27,7 @@ public class Cin {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private int id;
-    private Double number;
+    private Integer number;
     private LocalDate deliveryDate;
     private String deliveryLocation;
 }

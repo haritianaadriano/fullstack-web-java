@@ -12,11 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -51,6 +47,14 @@ public class EmployeeController {
     }
 
     //RESOLVER ->
+    @GetMapping("/employee/{id_employee}")
+    public String getOneEmployee(
+            @PathVariable(name = "id_employee")int idEmploye,
+            Model model
+    ) {
+        model.addAttribute("employee", mapper.toRest(service.getOneEmployee(idEmploye)));
+        return "employee";
+    }
 
     @RequestMapping(value = "/employee/update", method = RequestMethod.GET)
     public String updateEmployeeResolver(

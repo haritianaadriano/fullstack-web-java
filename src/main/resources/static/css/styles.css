@@ -1,3 +1,61 @@
-h4 {
-    color: red;
+.container {
+    margin-left: 100px;
+    margin-top: 40px;
+    width: 100vw; /* Full width container */
+    overflow: hidden; /* Clear floats */
+}
+
+ul:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+h1, h3, span {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style for inline elements */
+ul li {
+    margin-bottom: 10px; /* Add spacing between list items */
+    overflow: hidden; /* Clear floats */
+}
+
+.column {
+    width: 50vw; /* Each column takes 50% width */
+    float: left; /* Float the columns side by side */
+    padding: 10px; /* Add some spacing */
+    box-sizing: border-box; /* Include padding in the width */
+}
+
+.img-container {
+    width: 25vw;
+    height: 25vh;
+}
+
+hr {
+    width: 30vw;
+}
+
+.info-container {
+    margin-left: 300px;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.label {
+    font-weight: bolder;
+    font-family: Arial, Helvetica, sans-serif;
+    color: blue;
+    float: left; /* Float the label to the left */
+    width: 100px; /* Set a fixed width for the label */
+    text-align: left; /* Align label text to the right */
+    margin-right: 5px; /* Add spacing between label and content */
+}
+
+.content {
+    overflow: hidden; /* Clear floats */
 }

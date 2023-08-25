@@ -29,7 +29,7 @@ public class EmployeeForm {
     private int children;
     private LocalDate begindate;
     private LocalDate finishdate;
-    private Double CIN_number;
+    private Integer CIN_number;
     private LocalDate CIN_delivery_date;
     private String CIN_delivery_location;
 }

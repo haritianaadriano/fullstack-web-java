@@ -12,11 +12,13 @@ import com.demo.thymeleaf.repository.PhonenumberRepository;
 import com.demo.thymeleaf.repository.Repository;
 import com.demo.thymeleaf.service.utils.PhonenumberUtils;
 import lombok.AllArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.rmi.NotBoundException;
 import java.util.List;
 
 @Service
@@ -29,11 +31,15 @@ public class EmployeeService {
     private PhonenumberUtils phonenumberUtils;
 
     @Transactional
+    public Employee getOneEmployee(int id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("employee with #"+id+" not found"));
+    }
+
+    @Transactional
     public List<Employee> getEmployee(String order, String firstname, String lastname, String job, String adress, String phone){
-        Sort sort = Sort.by(Sort.Direction.fromString(order), "beginDate");
         Specification<Employee> spec = EmployeeDAO.filterEmployee(adress, job, phone);
         if(firstname.isEmpty() && lastname.isEmpty()) {
-            return repository.findAll(spec, sort);
+            return repository.findAll(spec);
         }
         return repository.find_employee_by_name_criteria(firstname, lastname);
     }

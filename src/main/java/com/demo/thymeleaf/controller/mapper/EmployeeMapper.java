@@ -7,6 +7,7 @@ import com.demo.thymeleaf.repository.CinRepostiroy;
 import com.demo.thymeleaf.repository.EntrepriseConfRepository;
 import com.demo.thymeleaf.repository.PhonenumberRepository;
 import com.demo.thymeleaf.repository.Repository;
+import com.demo.thymeleaf.service.utils.AgeUtils;
 import com.demo.thymeleaf.service.utils.EmployeeUtils;
 import com.demo.thymeleaf.service.utils.PhonenumberUtils;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,8 @@ public class EmployeeMapper {
 
     public Employee toRest(Employee employee) {
         return Employee.builder()
+                .age(AgeUtils.howOldAreI(employee.getBirthdate()))
+                .salary(employee.getSalary())
                 .children(employee.getChildren())
                 .firstname(employee.getFirstname())
                 .lastname(employee.getLastname())

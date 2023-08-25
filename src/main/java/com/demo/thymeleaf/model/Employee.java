@@ -49,6 +49,7 @@ public class Employee implements Serializable {
     private String job;
     @Enumerated(value = STRING)
     private Csp csp;
+    private Integer salary;
     private String CNAPS;
     private int children;
     private LocalDate beginDate;
@@ -66,4 +67,7 @@ public class Employee implements Serializable {
     @OneToOne
     private Profile profile;
     String phones;
+
+    @Transient
+    private int age;
 }
