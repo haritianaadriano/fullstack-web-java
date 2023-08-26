@@ -23,6 +23,7 @@ import java.io.OutputStream;
 public class PdfService {
     private final String PDF_RESOURCE = "classpath:/templates/pdf/";
     private EmployeeService employeeService;
+    private SpringTemplateEngine templateEngine;
 
     public File generatedPdf(int idEmployee) throws IOException, DocumentException {
         Context context = getContext(idEmployee);
@@ -43,12 +44,7 @@ public class PdfService {
     }
 
     private String loadAndFillTemplate(Context context) {
-        TemplateEngine templateEngine = new TemplateEngine();
-        ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
-        resolver.setSuffix(".html");
-        resolver.setTemplateMode(TemplateMode.HTML);
-        templateEngine.setTemplateResolver(resolver);
-        return templateEngine.process("employee_pdf", context);
+        return templateEngine.process("employee_pdf", context);  // The template name here should be "employee_pdf"
     }
 
     private Context getContext(int idEmployee) {
