@@ -24,6 +24,7 @@ public class EmployeeForm {
     private String CNAPS;
     private Csp csp;
     private String phonenumber;
+    private Integer salary;
     private LocalDate birthdate;
     private Sexe gender;
     private int children;

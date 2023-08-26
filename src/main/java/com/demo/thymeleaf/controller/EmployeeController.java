@@ -47,12 +47,21 @@ public class EmployeeController {
     }
 
     //RESOLVER ->
+    @GetMapping("/employee/{id_employee}/raw/pdf")
+    public String getOneEmployeePdf(
+            @PathVariable(name = "id_employee")int idEmploye,
+            Model model
+    ) {
+        model.addAttribute("one_employee", mapper.toRest(service.getOneEmployee(idEmploye)));
+        return "employee_pdf";
+    }
+
     @GetMapping("/employee/{id_employee}")
     public String getOneEmployee(
             @PathVariable(name = "id_employee")int idEmploye,
             Model model
     ) {
-        model.addAttribute("employee", mapper.toRest(service.getOneEmployee(idEmploye)));
+        model.addAttribute("one_employee", mapper.toRest(service.getOneEmployee(idEmploye)));
         return "employee";
     }
 

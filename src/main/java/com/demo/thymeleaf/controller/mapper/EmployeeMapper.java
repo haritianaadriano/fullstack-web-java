@@ -54,6 +54,7 @@ public class EmployeeMapper {
                 .number(employeeForm.getCIN_number())
                 .build();
         return Employee.builder()
+                .salary(employeeForm.getSalary())
                 .phones(employeeForm.getPhonenumber())
                 .lastname(employeeForm.getLastname())
                 .firstname(employeeForm.getFirstname())

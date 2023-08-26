@@ -52,24 +52,24 @@ public class EmployeeService {
 
     public Employee updateEmployee(UpdateEmployeeForm toUpdate, int idEmployee) {
         Cin cin = cinRepostiroy.get_cin_byNumber(toUpdate.getCIN_number());
-        cin.setDeliveryDate(toUpdate.getCIN_delivery_date());
-        cin.setNumber(toUpdate.getCIN_number());
-        cin.setDeliveryLocation(toUpdate.getCIN_delivery_location());
+        cin.setDeliveryDate(toUpdate.getCIN_delivery_date() == null ? cin.getDeliveryDate() : toUpdate.getCIN_delivery_date());
+        cin.setNumber(toUpdate.getCIN_number() == null ? cin.getNumber() : toUpdate.getCIN_number());
+        cin.setDeliveryLocation(toUpdate.getCIN_delivery_location().isEmpty() ? cin.getDeliveryLocation() : toUpdate.getCIN_delivery_location());
         cinRepostiroy.save(cin);
 
         Employee employee = repository.findById(idEmployee).get();
-        employee.setAdress(toUpdate.getAdress());
-        employee.setBeginDate(toUpdate.getBegindate());
+        employee.setAdress(toUpdate.getAdress().isEmpty() ? employee.getAdress() : toUpdate.getAdress());
+        employee.setBeginDate(toUpdate.getBegindate() == null ? employee.getBeginDate() : toUpdate.getBegindate());
         employee.setCin(cin);
-        employee.setFinishDate(toUpdate.getFinishdate());
-        employee.setBirthdate(toUpdate.getBirthdate());
-        employee.setCsp(toUpdate.getCsp());
-        employee.setChildren(toUpdate.getChildren());
-        employee.setCNAPS(toUpdate.getCNAPS());
-        employee.setEmailPerso(toUpdate.getEmailPerso());
-        employee.setEmailPerso(toUpdate.getEmailPerso());
-        employee.setFirstname(toUpdate.getFirstname());
-        employee.setLastname(toUpdate.getLastname());
+        employee.setFinishDate(toUpdate.getFinishdate() == null ? employee.getFinishDate() : toUpdate.getFinishdate());
+        employee.setBirthdate(toUpdate.getBirthdate() == null ? employee.getBirthdate() : toUpdate.getBirthdate());
+        employee.setCsp(toUpdate.getCsp() == null ? employee.getCsp() : toUpdate.getCsp());
+        employee.setChildren(toUpdate.getChildren() == 0 ? employee.getChildren() : toUpdate.getChildren());
+        employee.setCNAPS(toUpdate.getCNAPS().isEmpty() ? employee.getCNAPS() : toUpdate.getCNAPS());
+        employee.setEmailPerso(toUpdate.getEmailPerso().isEmpty() ? employee.getEmailPerso() : toUpdate.getEmailPerso());
+        employee.setEmailPro(toUpdate.getEmailPro().isEmpty() ? employee.getEmailPro() : toUpdate.getEmailPro());
+        employee.setFirstname(toUpdate.getFirstname().isEmpty() ? employee.getFirstname() : toUpdate.getFirstname());
+        employee.setLastname(toUpdate.getLastname().isEmpty() ? employee.getLastname() : toUpdate.getLastname());
 
         return repository.save(employee);
     }

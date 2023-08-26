@@ -32,4 +32,5 @@ public class UpdateEmployeeForm {
     private Integer CIN_number;
     private LocalDate CIN_delivery_date;
     private String CIN_delivery_location;
+    private Integer salary;
 }

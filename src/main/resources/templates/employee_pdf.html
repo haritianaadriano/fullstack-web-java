@@ -3,36 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,200&display=swap');
+    </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <title>Document</title>
 </head>
 <body>
-<div class="container mt-4">
+<div class="container-header">
     <div class="row">
         <div class="col-md-6">
             <div class="img-container">
-                <img src="img.jpg" alt="">
+                <img
+                        th:src="@{/profile/{id}(id=${one_employee.id})}"
+                        alt="Profile Image"
+                        width="100"
+                        data-image-src="@{/profile/{id}(id=${one_employee.id})}"
+                        data-image-content-type="image/jpeg"
+                >
             </div>
         </div>
         <div class="col-md-6">
-            <h1>Employee:</h1>
+            <h3
+                    style="font-family: 'Montserrat', sans-serif; color: #0a73fc"
+            >
+                Employee slip:
+            </h3>
             <ul>
                 <li>
                     <span class="label">ref:</span>
-                    <span class="content">#EP-01</span>
+                    <span id="ref" th:text="${one_employee.ref}" class="content"></span>
                 </li>
                 <li>
                     <span class="label">firstname:</span>
-                    <span class="content">Haritiana</span>
+                    <span id="firstname" th:text="${one_employee.firstname}" class="content"></span>
                 </li>
                 <li>
                     <span class="label">lastname:</span>
-                    <span class="content">Adriano</span>
-                </li>
-                <li>
-                    <span class="label">birthdate:</span>
-                    <span class="content">28/10/2003</span>
+                    <span id="lastname" th:text="${one_employee.lastname}" class="content"></span>
                 </li>
             </ul>
         </div>
@@ -41,45 +50,55 @@
 <hr class="w-50 mx-auto">
 
 <div class="info-container">
-    <h3>
+    <h3
+            style="font-family: 'Montserrat', sans-serif; color: #0a73fc"
+    >
         Employee:
     </h3>
     <ul>
         <li>
             <span class="label">birthdate:</span>
-            <span class="content">28/10/2003</span>
+            <span id="birthdate" th:text="${one_employee.birthdate}" class="content"></span>
         </li>
         <li>
             <span class="label">phones:</span>
-            <span class="content">+261 34 76 765 58</span>
+            <span id="phones" th:text="${one_employee.phones}" class="content"></span>
         </li>
         <li>
             <span class="label">age:</span>
-            <span class="content">20</span>
+            <span id="age" th:text="${one_employee.age}" class="content"></span>
         </li>
         <li>
             <span class="label">CSP:</span>
-            <span class="content">M1</span>
+            <span id="csp" th:text="${one_employee.csp}" class="content"></span>
         </li>
         <li>
             <span class="label">salary:</span>
-            <span class="content">2 000 000</span>
+            <span id="salary" th:text="${one_employee.salary}" class="content"></span>
         </li>
         <li>
             <span class="label">profession:</span>
-            <span class="content">java tech lead</span>
+            <span id="profession" th:text="${one_employee.job}" class="content"></span>
+        </li>
+        <li>
+            <span class="label">children:</span>
+            <span id="children" th:text="${one_employee.children}" class="content"></span>
         </li>
         <li>
             <span class="label">cnaps:</span>
-            <span class="content">12345</span>
+            <span id="cnaps" th:text="${one_employee.CNAPS}" class="content"></span>
         </li>
         <li>
             <span class="label">cin:</span>
-            <span class="content">23445678</span>
+            <span id="cin" th:text="${one_employee.cin.number}" class="content"></span>
         </li>
         <li>
             <span class="label">cin date delivery:</span>
-            <span class="content">12/4/2024</span>
+            <span id="cin_delivery_date" th:text="${one_employee.cin.deliveryDate}" class="content"></span>
+        </li>
+        <li>
+            <span class="label">cin delivery location:</span>
+            <span id="cin_delivery_location" th:text="${one_employee.cin.deliveryLocation}" class="content"></span>
         </li>
     </ul>
 </div>
@@ -130,7 +149,7 @@
                     <!-- Content -->
                     <h6
                             class="text-uppercase fw-bold mb-4 primary"
-                            style="font-family: 'Montserrat', sans-serif;"
+                            style="font-family: 'Montserrat', sans-serif; color: #0a73fc"
                     >
                         <i class="fas fa-gem me-3" ></i>
                         ASA-ko
