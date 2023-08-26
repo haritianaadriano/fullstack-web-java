@@ -4,7 +4,9 @@ import com.demo.thymeleaf.controller.form.EmployeeForm;
 import com.demo.thymeleaf.controller.form.UpdateEmployeeForm;
 import com.demo.thymeleaf.controller.mapper.EmployeeMapper;
 import com.demo.thymeleaf.service.EmployeeService;
+import com.demo.thymeleaf.service.PdfService;
 import com.demo.thymeleaf.service.utils.AuthService;
+import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,12 +16,18 @@ import org.springframework.validation.BindingResult;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.UUID;
 
 @Controller
 @AllArgsConstructor
 public class EmployeeController {
+  private final PdfService pdfService;
   private final AuthService authService;
   private EmployeeService service;
   private EmployeeMapper mapper;
@@ -50,9 +58,24 @@ public class EmployeeController {
     @GetMapping("/employee/{id_employee}/raw/pdf")
     public String getOneEmployeePdf(
             @PathVariable(name = "id_employee")int idEmploye,
-            Model model
+            Model model,
+            HttpServletResponse response
     ) {
-        model.addAttribute("one_employee", mapper.toRest(service.getOneEmployee(idEmploye)));
+        try {
+            Path file = Paths.get(pdfService.generatedPdf(idEmploye).getAbsolutePath());
+            if(Files.exists(file)) {
+                response.setContentType("application/pdf");
+                response.addHeader(
+                        "Content-Disposition",
+                        "attachment; filename:"+file.getFileName()
+                        );
+                Files.copy(file, response.getOutputStream());
+                response.getOutputStream().flush();
+            }
+        }
+        catch (IOException | DocumentException e) {
+            e.printStackTrace();
+        }
         return "employee_pdf";
     }
 
@@ -63,54 +86,5 @@ public class EmployeeController {
     ) {
         model.addAttribute("one_employee", mapper.toRest(service.getOneEmployee(idEmploye)));
         return "employee";
-    }
-
-    @RequestMapping(value = "/employee/update", method = RequestMethod.GET)
-    public String updateEmployeeResolver(
-            Model model,
-            HttpSession session
-    ) {
-        String token = (String) session.getAttribute("token");
-        model.addAttribute("employee", new UpdateEmployeeForm());
-        if (Objects.nonNull(token) && authService.isAuthorised(UUID.fromString(token))) {
-            return "updateEmployee";
-        }
-        return "redirect:/auth/login";
-    }
-
-    @RequestMapping(value = "/employee", method = RequestMethod.GET)
-    public String employeeResolver(
-            HttpSession session,
-            Model model,
-            @RequestParam(name = "order", defaultValue = "ASC") String order,
-            @RequestParam(name = "firstname", required = false, defaultValue = "") String firstname,
-            @RequestParam(name = "lastname", required = false, defaultValue = "") String lastname,
-            @RequestParam(name = "job", required = false, defaultValue = "") String job,
-            @RequestParam(name = "address", required = false, defaultValue = "") String address,
-            @RequestParam(name = "phone", required = false, defaultValue = "") String phone
-            ) {
-        model.addAttribute(
-                "employees",
-                service.getEmployee(order, firstname, lastname, job, address, phone).stream()
-                        .map(mapper::toRest)
-        );
-        String token = (String) session.getAttribute("token");
-        if (Objects.nonNull(token) && authService.isAuthorised(UUID.fromString(token))) {
-            return "index";
-        }
-        return "redirect:/auth/login";
-    }
-
-    @RequestMapping(value = "/employee/save", method = RequestMethod.GET)
-    public String saveEmployeeResolver(
-            Model model,
-            HttpSession session
-    ) {
-        model.addAttribute("employee", new EmployeeForm());
-        String token = (String) session.getAttribute("token");
-        if (Objects.nonNull(token) && authService.isAuthorised(UUID.fromString(token))) {
-            return "addEmployee";
-        }
-        return "redirect:/auth/login";
     }
 }

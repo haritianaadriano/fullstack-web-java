@@ -57,7 +57,7 @@ public class EmployeeService {
         cin.setDeliveryLocation(toUpdate.getCIN_delivery_location().isEmpty() ? cin.getDeliveryLocation() : toUpdate.getCIN_delivery_location());
         cinRepostiroy.save(cin);
 
-        Employee employee = repository.findById(idEmployee).get();
+        Employee employee = repository.findById(idEmployee).orElseThrow(() -> new RuntimeException("employee with #"+idEmployee+" is not found"));
         employee.setAdress(toUpdate.getAdress().isEmpty() ? employee.getAdress() : toUpdate.getAdress());
         employee.setBeginDate(toUpdate.getBegindate() == null ? employee.getBeginDate() : toUpdate.getBegindate());
         employee.setCin(cin);
